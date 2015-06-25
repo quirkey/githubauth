@@ -133,6 +133,7 @@ func (h *Handler) loginOk(ctx context.Context, w http.ResponseWriter, r *http.Re
 		tok, err := conf.Exchange(ctx, r.FormValue("code"))
 		if err != nil {
 			h.deleteCookie(w)
+			log.Println("Error exchanging cookie: ", err)
 			http.Error(w, "access forbidden", 401)
 			return ctx, false
 		}
